@@ -13,6 +13,7 @@ export const Container = styled.div`
     margin: 50px 0;
 
     font-weight: 700;
-    font-size: 5rem;
+    font-size: 3rem;
+    color: var(--cyan);
   }
 `;

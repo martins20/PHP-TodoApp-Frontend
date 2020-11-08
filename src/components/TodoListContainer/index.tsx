@@ -1,11 +1,12 @@
 import React from 'react';
+import Todo from '../Todo';
 
 import { Container } from './styles';
 
 const TodoListContainter: React.FC = () => {
   return (
     <Container>
-      <h1>TodoListContainter</h1>
+      <Todo />
     </Container>
   );
 };

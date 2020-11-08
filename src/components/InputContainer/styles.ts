@@ -7,6 +7,7 @@ export const Container = styled.section`
 
   align-items: center;
   width: 100%;
+  height: 53px;
 
   max-width: 900px;
   min-width: 300px;

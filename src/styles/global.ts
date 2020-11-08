@@ -6,7 +6,8 @@ export default createGlobalStyle`
     --red: #c53030;
     --yellow: #B78931;
     --cyan: #3172B7;
-    font-size: 60%;
+
+    font-size: 16px;
   }
 
   * {
