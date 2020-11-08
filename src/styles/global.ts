@@ -2,6 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   :root {
+    --green: #05A863;
+    --red: #c53030;
+    --yellow: #B78931;
+    --cyan: #3172B7;
     font-size: 60%;
   }
 
@@ -13,6 +17,7 @@ export default createGlobalStyle`
   }
 
   body {
+    background: #F2F2F2;
     -webkit-font-smoothing: antialiased;
   }
 
