@@ -3,11 +3,14 @@ import React from 'react';
 import GlobalStyle from './styles/global';
 
 import Todo from './pages/Todo';
+import Providers from './hooks';
 
 const App: React.FC = () => {
   return (
     <>
-      <Todo />
+      <Providers>
+        <Todo />
+      </Providers>
       <GlobalStyle />
     </>
   );

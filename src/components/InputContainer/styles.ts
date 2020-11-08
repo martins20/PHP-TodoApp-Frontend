@@ -19,6 +19,8 @@ export const Container = styled.section`
   border-radius: 10px;
 
   padding: 10px 20px;
+
+  position: relative;
 `;
 
 export const Form = styled(unformFormComponent)`
