@@ -19,27 +19,30 @@ const InputContainer: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data: FormData) => {
-    try {
-      const sheema = Yup.object().shape<FormData>({
-        todo_name: Yup.string().required('Todo name is required').trim(),
-      });
+  const handleSubmit = useCallback(
+    async (data: FormData) => {
+      try {
+        const sheema = Yup.object().shape<FormData>({
+          todo_name: Yup.string().required('Todo name is required').trim(),
+        });
 
-      await sheema.validate(data, { abortEarly: false });
+        await sheema.validate(data, { abortEarly: false });
 
-      await handleAddNewTodo(data.todo_name.trim());
-      formRef.current?.reset();
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
+        await handleAddNewTodo(data.todo_name.trim());
+        formRef.current?.reset();
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
 
-        formRef.current?.setErrors(errors);
-        return;
+          formRef.current?.setErrors(errors);
+          return;
+        }
+
+        console.log(err);
       }
-
-      console.log(err);
-    }
-  }, []);
+    },
+    [handleAddNewTodo],
+  );
 
   return (
     <Container>

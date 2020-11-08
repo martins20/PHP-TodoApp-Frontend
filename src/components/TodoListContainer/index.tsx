@@ -13,6 +13,7 @@ const TodoListContainter: React.FC = () => {
       {todos.map(todo => (
         <Todo
           key={todo.id}
+          id={todo.id}
           todo_name={todo.todo_name}
           is_completed={todo.is_completed}
         />

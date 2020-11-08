@@ -12,6 +12,8 @@ import api from '../services/api';
 interface TodoContextData {
   todos: ITodoDTO[];
   handleAddNewTodo(todo_name: string): Promise<void>;
+  handleDeleteTodo(id: number): void;
+  handleToggleCompleteTodo(id: number): void;
 }
 
 interface Request {
@@ -26,12 +28,8 @@ const TodoContext = createContext<TodoContextData>({} as TodoContextData);
 export const TodoProvider: React.FC = ({ children }) => {
   const [todos, setTodos] = useState<ITodoDTO[]>([]);
 
-  useEffect(() => {
-    handleGetTodosFromApi();
-  }, []);
-
   const handleGetTodosFromApi = useCallback(async () => {
-    const { data } = await api.get('/todos');
+    const { data } = await api.get('todos');
 
     const filterredTodos = data.map((todo: Request) => ({
       ...todo,
@@ -41,9 +39,13 @@ export const TodoProvider: React.FC = ({ children }) => {
     setTodos(filterredTodos);
   }, []);
 
+  useEffect(() => {
+    handleGetTodosFromApi();
+  }, [handleGetTodosFromApi]);
+
   const handleAddNewTodo = useCallback(
     async (todo_name: string): Promise<void> => {
-      const { data } = await api.post('/todos', {
+      const { data } = await api.post('todos', {
         todo_name,
       });
 
@@ -52,8 +54,43 @@ export const TodoProvider: React.FC = ({ children }) => {
     [todos],
   );
 
+  const handleDeleteTodo = useCallback(
+    async (id: number) => {
+      api.delete(`todos/${id}`);
+
+      const filteredTodos = todos.filter(todo => todo.id !== id);
+
+      setTodos(filteredTodos);
+    },
+    [todos],
+  );
+
+  const handleToggleCompleteTodo = useCallback(
+    async (id: number) => {
+      const findedTodo = todos.find(todo => todo.id === id);
+
+      if (!findedTodo) return;
+
+      api.put(`todos/${id}`, { is_completed: !findedTodo.is_completed });
+
+      const filteredTodos = todos.map(todo =>
+        todo.id === id ? { ...todo, is_completed: !todo.is_completed } : todo,
+      );
+
+      setTodos(filteredTodos);
+    },
+    [todos],
+  );
+
   return (
-    <TodoContext.Provider value={{ todos, handleAddNewTodo }}>
+    <TodoContext.Provider
+      value={{
+        todos,
+        handleAddNewTodo,
+        handleDeleteTodo,
+        handleToggleCompleteTodo,
+      }}
+    >
       {children}
     </TodoContext.Provider>
   );
