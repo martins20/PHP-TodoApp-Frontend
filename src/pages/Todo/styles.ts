@@ -6,12 +6,12 @@ export const Container = styled.div`
 
   width: 100vw;
   height: 100vh;
+  padding: 50px 0;
 
   align-items: center;
 
   > h1 {
-    margin: 50px 0;
-
+    margin-bottom: 20px;
     font-weight: 700;
     font-size: 3rem;
     color: var(--cyan);
